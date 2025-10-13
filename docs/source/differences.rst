@@ -46,6 +46,6 @@ Design choices
   ``folklore``, ``skip_order_zero``. We do not support these options in this implementation
   to keep the code base simple and focused on the core architecture.
 - Our implementation of channel-wise rescalings differs slightly from the original PELICAN.
-  The official implementation rescales aggregation maps by :math:``1/N^\alpha``, where N
+  The official implementation rescales aggregation maps by :math:`1/N^\alpha`, where N
   is the number of nodes in the graph, and :math:`\alpha` is a learnable parameter.
   In our implementation, the scaling factor is learned directly.

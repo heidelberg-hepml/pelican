@@ -15,7 +15,7 @@ PELICAN was first published at the [ML4PS workshop 2022](https://arxiv.org/abs/2
 The official implementation is available on https://github.com/abogatskiy/PELICAN.
 
 This implementation aims to improve efficiency and ease of use. 
-For toptagging, we find 8x reduced memory usage for batch size 100, and 2x training speedup for batch size 1 compared to the original implementation.
+For toptagging with batch size 100, we find 8x reduced memory usage and a 3x training speedup compared to the original implementation.
 PELICAN can be used as the Frames-Net in [Lorentz Local Canonicalization (LLoCa)](https://github.com/heidelberg-hepml/lloca).
 
 You can read more about this implementation in the [Efficient PELICAN documentation](https://heidelberg-hepml.github.io/pelican/).

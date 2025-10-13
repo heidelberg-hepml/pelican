@@ -9,7 +9,7 @@ Before using the package, install it via pip:
 
 .. code-block:: bash
 
-   pip install pelican
+   pip install pelican-hep
 
 Alternatively, if you're developing locally:
 
