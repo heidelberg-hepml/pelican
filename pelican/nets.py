@@ -175,11 +175,8 @@ class PELICAN(nn.Module):
         out : torch.Tensor
             Output features of shape (G, out_channels) for out_rank=0, (N, out_channels) for out_rank=1, or (E, out_channels) for out_rank=2.
         """
-        # check that diagonal edges are present (required for 2to2 aggregator)
-        N = batch.size(0)
-        row, col = edge_index
-        is_diag = row == col
-        assert is_diag.sum() == N, "PELICAN requires self-loops in the graph"
+        if num_graphs is None:
+            num_graphs = batch[-1].item() + 1
 
         # embed inputs into edge features
         edges = [in_rank2] if in_rank2 is not None else []
