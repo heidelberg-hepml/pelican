@@ -33,7 +33,7 @@ class PELICAN(nn.Module):
         increase_hidden_channels: float = 1.0,
         map_multipliers: bool = True,
         factorize: bool = False,
-        activation: str = "gelu",
+        activation: str = "leaky_relu",
         dropout_prob: float | None = None,
         aggr: str = "mean",
         compile: bool = False,
@@ -63,7 +63,7 @@ class PELICAN(nn.Module):
         factorize : bool
             Whether to use factorized linear layers in the feedforward network. Default is False.
         activation : str
-            Activation function to use ('gelu', 'relu', 'leaky_relu', 'tanh', 'sigmoid', 'silu'), by default 'gelu'.
+            Activation function to use ('gelu', 'relu', 'leaky_relu', 'tanh', 'sigmoid', 'silu'), by default 'leaky_relu'.
         dropout_prob: float
             Dropout probability in the feedforward network, by default None (no dropout).
         aggr : str

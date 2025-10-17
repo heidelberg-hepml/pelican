@@ -40,8 +40,6 @@ Design choices
 - We use RMSNorm instead of BatchNorm. This is because BatchNorm can lead to instabilities
   when the batch size is small, or when the node count per graph varies strongly.
   RMSNorm is a simpler normalization that does not depend on the batch statistics.
-- We use GELU activations as default, instead of LeakyReLU. GELU is smoother and
-  often leads to better performance. We still support LeakyReLU as an option.
 - The official PELICAN implementation supports a range of additional options, e.g. IRC safety,
   ``folklore``, ``skip_order_zero``. We do not support these options in this implementation
   to keep the code base simple and focused on the core architecture.

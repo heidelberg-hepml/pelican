@@ -165,7 +165,7 @@ class PELICANBlock(nn.Module):
         self,
         hidden_channels: int,
         increase_hidden_channels: float = 1.0,
-        activation: str = "gelu",
+        activation: str = "leaky_relu",
         dropout_prob: float | None = None,
         **kwargs,
     ):
@@ -177,7 +177,7 @@ class PELICANBlock(nn.Module):
         increase_hidden_channels : float
             Factor to increase hidden channels in the feedforward network, by default 1.0.
         activation : str
-            Activation function to use ('gelu', 'relu', 'leaky_relu', 'tanh', 'sigmoid', 'silu'), by default 'gelu'.
+            Activation function to use ('gelu', 'relu', 'leaky_relu', 'tanh', 'sigmoid', 'silu'), by default 'leaky_relu'.
         dropout_prob: float
             Dropout probability, by default None.
         **kwargs
