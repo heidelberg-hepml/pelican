@@ -72,6 +72,7 @@ class PELICAN(nn.Module):
             Whether to compile the model with torch.compile. Default is False.
             Compiling the model leads to significant speedups on GPU, because the aggregation functions involve many small operations that otherwise require many individual kernel launches.
             It is recommended to run ``model = torch.compile(model, **kwargs)`` outside of the constructor, however we provide this option for convenience.
+            Note: When compile=True, the model requires the num_graphs argument in the forward pass to avoid a graph break.
         checkpoint_blocks : bool
             Whether to use gradient checkpointing for PELICAN blocks to save memory. Default is False.
         """
@@ -135,6 +136,7 @@ class PELICAN(nn.Module):
             **layer_kwargs,
         )
 
+        self.compile = compile
         if compile:
             # ugly hack to make torch.compile convenient for users
             # the clean solution is model = torch.compile(model, **kwargs) outside of the constructor
@@ -166,9 +168,11 @@ class PELICAN(nn.Module):
         in_rank0 : torch.Tensor
             Graph-level input features of shape (G, in_channels_rank0), by default None.
         num_graphs : int
-            Number of graphs in the batch. If None, it will be inferred from the batch tensor.
+            The number of graphs G in the batch, also known as batch size.
+            If None, it will be inferred from the batch tensor.
             Inferring this number from the batch tensor requires a GPU/CPU synchronization,
             which slows down the code when running on GPU.
+            Currently, the code requires the num_graphs argument in case compile=True.
 
         Returns
         -------
@@ -176,6 +180,7 @@ class PELICAN(nn.Module):
             Output features of shape (G, out_channels) for out_rank=0, (N, out_channels) for out_rank=1, or (E, out_channels) for out_rank=2.
         """
         if num_graphs is None:
+            assert not self.compile, "num_graphs must be provided when model is compiled, otherwise the .item() call breaks the computational graph, slowing down the compiled code."
             num_graphs = batch[-1].item() + 1
 
         # embed inputs into edge features
